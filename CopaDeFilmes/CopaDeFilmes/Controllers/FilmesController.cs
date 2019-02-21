@@ -24,6 +24,7 @@ namespace CopaDeFilmes.Controllers
         {
             try
             {
+                RemoveSession("Ganhadores");
                 FilmesList = GetSession("Filmes");
 
                 if (FilmesList == null)
@@ -46,11 +47,14 @@ namespace CopaDeFilmes.Controllers
 
             try
             {
-                var retorno = vmfilmes.FiltraLista(GetSession("Filmes"), filmesids);
-                FilmesList = vmfilmes.Iniciar(retorno);
-                CriarSession(FilmesList, "Ganhadores");
+                FilmesList = GetSession("Filmes");
 
-                //return FilmesList;
+                if (FilmesList != null)
+                {
+                    var retorno = vmfilmes.FiltraLista(FilmesList, filmesids);
+                    FilmesList = vmfilmes.Iniciar(retorno);
+                    CriarSession(FilmesList, "Ganhadores");
+                }
             }
             catch (Exception)
             {
@@ -60,12 +64,17 @@ namespace CopaDeFilmes.Controllers
 
         public IActionResult Resultado()
         {
-            return View("Resultado", GetSession("Ganhadores"));
+            var lista = GetSession("Ganhadores");
+
+            if (lista != null)
+                return View("Resultado", lista);
+            else
+                return RedirectToAction("SelecionarFilmes", "Filmes");
         }
 
         private void CriarSession(List<Filmes> filmes, string name)
         {
-            HttpContext.Session.Remove(name);
+            RemoveSession(name);
             HttpContext.Session.SetString(name, JsonConvert.SerializeObject(filmes));
         }
 
@@ -77,6 +86,11 @@ namespace CopaDeFilmes.Controllers
                 return JsonConvert.DeserializeObject<List<Filmes>>(session);
             else
                 return null;
+        }
+
+        private void RemoveSession(string name)
+        {
+            HttpContext.Session.Remove(name);
         }
     }
 }
