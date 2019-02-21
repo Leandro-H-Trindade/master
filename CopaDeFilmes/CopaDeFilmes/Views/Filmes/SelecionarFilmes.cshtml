@@ -1,0 +1,50 @@
+﻿@model List<PackageFilmes.Models.Filmes>
+
+@{
+    ViewData["Title"] = "SelecionarFilmes";
+}
+
+<partial name="Partial_Title.cshtml" model=' new VmTitle
+{
+    Titulo = "Fase de Seleção",
+    Mensagem = "Selecione 8 filmes que você deseja que entrem na competição e depois pressione o botão Iniciar Campeonato para prosseguir."
+}' />
+<br />
+<div class="row">
+    <div class="col-sm-10">
+        <h5>Selecionados</h5>
+        <strong><label id="Selectedfilme"></label></strong>
+    </div>
+
+    <div class="col-sm-2">
+        <button name="BtnIniciarcampeonato" id="#BtnIniciarcampeonato" class="btn btn-dark">
+            Iniciar Campeonato
+        </button>
+    </div>
+</div>
+<br />
+
+<div class="card">
+    <div class="card-body">
+        <div class="row">
+
+            @foreach (var item in Model)
+            {
+                <div class="col-sm-3">
+                    <div class="card cardConfig bg-dark text-white">
+                        <div class="card-body">
+                            <h6>@item.Titulo</h6>
+                            <p>Ano @item.Ano</p>
+                            <div class="form-check">
+                                <input type="checkbox" class="form-check-input" value="@item.Id">
+                                <label class="form-check-label" for="Check">Selecionar</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+<partial name="_modalError.cshtml" />

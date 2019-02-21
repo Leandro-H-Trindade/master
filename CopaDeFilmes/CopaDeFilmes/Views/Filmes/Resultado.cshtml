@@ -1,0 +1,42 @@
+﻿@model List<PackageFilmes.Models.Filmes>
+
+@{
+    ViewData["Title"] = "Resultado";
+}
+
+<partial name="/Views/Filmes/Partial_Title.cshtml" model=' new VmTitle
+{
+    Titulo = "Resultado Final",
+    Mensagem = "Veja o resultado final do campeonato de filmes de forma simples e rápida."
+}' />
+<br />
+<table class="table table-dark table-hover">
+    <thead>
+        <tr>
+            <th>Podium</th>
+            <th>Filme</th>
+            <th>Nota</th>
+        </tr>
+    </thead>
+    <tbody>
+        @for (int i = 0; i < Model.Count; i++)
+        {
+            <tr>
+                <td><h3><span>@(i + 1) º</span></h3></td>
+                <td><h3><span class="rounded-0">@Model[i].Titulo</span></h3></td>
+                <td><h3><span class="rounded-0">@Model[i].Nota</span></h3></td>
+            </tr>
+        }
+
+    </tbody>
+</table>
+
+<br />
+<div class="row">
+
+    <div class="col-sm-12">
+        <a asp-action="SelecionarFilmes" asp-controller="Filmes" class="btn btn-dark">
+            Voltar
+        </a>
+    </div>
+</div>
