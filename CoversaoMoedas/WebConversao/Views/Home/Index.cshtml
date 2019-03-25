@@ -3,7 +3,9 @@
 @{
     ViewData["Title"] = "Home Page";
 }
+
 <p></p>
+
 <div class="container">
 
     <table class="table table-hover">
@@ -12,7 +14,7 @@
                 <th>Moeda</th>
                 <th>Cotação</th>
                 <th>Valor</th>
-                <th>Ação</th>
+                <th>Conversão</th>
             </tr>
         </thead>
         <tbody>
@@ -22,11 +24,14 @@
                     <td>@item.Nome</td>
                     <td>@item.Cotacao</td>
                     <td class="form-group">
-                        @Html.TextBoxFor(a => a.Where(n => n.Nome.Equals(item.Nome)).FirstOrDefault().Valor, 
-                       new { @class = "form-control" }) 
+                        @Html.TextBoxFor(a => a.Where(n => n.Nome.Equals(item.Nome)).FirstOrDefault().Valor,
+                       new { @class = "form-control" })
                     </td>
 
-                    <td><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></td>
+                    <td>
+                        <a asp-area="" asp-controller="Home" asp-action="Index" class="btn btn-success">Real</a>
+                        <a asp-area="" asp-controller="Home" asp-action="Index" class="btn btn-info">Dolar</a>
+                    </td>
                 </tr>
             }
         </tbody>
