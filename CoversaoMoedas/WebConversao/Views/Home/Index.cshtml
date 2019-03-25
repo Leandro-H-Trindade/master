@@ -1,0 +1,37 @@
+﻿@model List<PackageConversao.Model.Moeda>
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+<p></p>
+<div class="container">
+
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>Moeda</th>
+                <th>Cotação</th>
+                <th>Valor</th>
+                <th>Ação</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.Nome</td>
+                    <td>@item.Cotacao</td>
+                    <td class="form-group">
+                        @Html.TextBoxFor(a => a.Where(n => n.Nome.Equals(item.Nome)).FirstOrDefault().Valor, 
+                       new { @class = "form-control" }) 
+                    </td>
+
+                    <td><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+</div>
+
+
